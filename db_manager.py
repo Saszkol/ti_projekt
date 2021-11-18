@@ -1,7 +1,7 @@
 import pyodbc
 cnxn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
                       "Server=IT15007;"
-                      "Database=test_html;"
+                      "Database=wypozyczalnia_lodzie;"
                       "Trusted_Connection=yes;")
 
 
