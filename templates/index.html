@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Wypożyczalnia Lodzi</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-hello!
+    <div class="container">
+        <div class="top_menu">
+            <div class="menu_button_wrap" style="background-color: pink;">
+                &nbsp;
+            </div>
+            <div class="menu_button_wrap">
+                <button class="menu_button" id="boats_description">Opis łodzi</button>
+            </div>
+            <div class="menu_button_wrap">
+                <button class="menu_button" id="reservation">Rezerwacja</button>
+            </div>
+            <div class="menu_button_wrap">
+                <button class="menu_button" id="contact">Kontakt</button>
+            </div>
+        </div>
+        <div class="thematic_picture">
+            <!--add img
+            <img src="{{ url_for('static', filename='img/boat.jpg') }}" />-->
+        </div>
+        <div class="info_wrapper">
+            <div class="sample_boat_picture">
+
+            </div>
+            <div class="business_description">
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>
