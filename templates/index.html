@@ -5,11 +5,14 @@
     <title>Wypożyczalnia Lodzi</title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=no" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/navigation.js') }}"></script>
 </head>
 <body>
     <div class="container">
         <div class="top_menu">
-            <div class="menu_button_wrap" style="background-color: pink;">
+            <div class="menu_button_wrap">
                 &nbsp;
             </div>
             <div class="menu_button_wrap">
@@ -23,15 +26,27 @@
             </div>
         </div>
         <div class="thematic_picture">
-            <!--add img
-            <img src="{{ url_for('static', filename='img/boat.jpg') }}" />-->
+            <img src="{{ url_for('static', filename='img/sailboat.jpg') }}" />
         </div>
         <div class="info_wrapper">
             <div class="sample_boat_picture">
-
+                <img src="{{ url_for('static', filename='img/look2.jpg') }}" />
             </div>
             <div class="business_description">
+                Specjalizujemy się w wynajmie jachtów - czartery jachtów - na wszystkich morzach świata. W naszej ofercie znajdziesz czarter jachtów żaglowych i motorowych jednokadłubowych (tzw. monohulle) oraz katamaranów.
+            </div>
 
+            <div class="sample_boat_picture">
+                <img src="{{ url_for('static', filename='img/see.jpg') }}" />
+            </div>
+            <div class="business_description">
+                W odróżnieniu do wakacji w hotelu, na jachcie mieszkasz, wypoczywasz a co najważniejsze przemieszczasz się. Codziennie inna zatoka, inny port, inne miasteczko – codziennie zmieniasz otoczenie i odwiedzasz nowe urokliwe zakątki, do których bez jachtu trudno dotrzeć
+            </div>
+            <div class="sample_boat_picture">
+                <img src="{{ url_for('static', filename='img/look.jpg') }}" />
+            </div>
+            <div class="business_description">
+                Żeglujesz? Posiadasz uprawnienia? Masz chęć spędzić urlop prowadząc jacht? Wybierz opcje “bareboat” (czarter jachtu bez skippera), Nie posiadasz doświadczenia żeglarskiego? Posiadasz doświadczenie ale chcesz spędzić urlop bez stresu? Masz obawy co do swoich umiejętności prowadzenia jachtu? Wybierz opcje “skippered” (czarter jachtu + zatrudnienie skippera)
             </div>
         </div>
     </div>

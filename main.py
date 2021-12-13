@@ -6,7 +6,11 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template('index.html')
-    # return "<p>Hello, World!</p>"
+
+
+@app.route("/reservation")
+def reservation():
+    return render_template('reservation.html')
 
 
 def main():
