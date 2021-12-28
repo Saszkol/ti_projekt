@@ -22,7 +22,7 @@ class DatabaseManager:
     @classmethod
     def get_all_reservations(cls):
         cursor = cls.cnxn.cursor()
-        cursor.execute('SELECT * FROM dbo.Wypozyczenia')
+        cursor.execute('SELECT * FROM dbo.Rezerwacja')
         for row in cursor:
             print('row = %r' % (row,))
 
@@ -31,7 +31,8 @@ class DatabaseManager:
         try:
             print(f'Trying to get available boats with date filter: {str(date_range_json)}')
             cursor = cls.cnxn.cursor()
-            cursor.execute('SELECT * FROM dbo.Wypozyczenia WHERE dbo.Wypozyczenia.OD > ? and dbo.Wypozyczenia.DO < ?',
+            cursor.execute('SELECT * FROM dbo.Rezerwacja WHERE dbo.Rezerwacja.rezerwacja_data_od > ?'
+                           ' and dbo.Rezerwacja.rezerwacja_data_do < ?',
                            cls.get_datetime_from_string(date_range_json['date_from']),
                            cls.get_datetime_from_string(date_range_json['date_to']))
             for row in cursor:
@@ -56,6 +57,7 @@ class DatabaseManager:
 def main():
     DatabaseManager.get_all_available_boats_filtered_by_date({'date_from': '2021-12-01 00:00:00',
                                                               'date_to': '2021-12-31 00:00:00'})
+    # DatabaseManager.get_all_reservations()
 
 
 if __name__ == '__main__':
