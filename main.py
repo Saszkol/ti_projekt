@@ -32,6 +32,21 @@ def boat(nr):
     return render_template('boat.html', config_json=SearchResult.db_query_result[nr])
 
 
+@app.route('/accept_reservation/<reservation_data>', methods=['GET'])
+def accept_reservation(reservation_data):
+    print(f'Got reservation data: {reservation_data}')
+    reservation_data_json = try_parse_to_dic(reservation_data)
+    if reservation_data_json is None:
+        return 'error'
+    else:
+        # todo
+        #  1. add user data to db
+        #  2. add reservation data to db
+        #  3. return success
+        DatabaseManager.insert_user(reservation_data_json)
+        return 'ok'
+
+
 def try_parse_to_dic(jsdata):
     try:
         print(f'Trying to parse jsdata: {jsdata} to dictionary.')

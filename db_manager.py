@@ -31,24 +31,20 @@ class DatabaseManager:
         try:
             print(f'Trying to get available boats with date filter: {str(date_range_json)}')
             cursor = cls.cnxn.cursor()
-            # cursor.execute('SELECT * FROM dbo.Rezerwacja WHERE dbo.Rezerwacja.rezerwacja_data_do > ?'
-            #                ' and dbo.Rezerwacja.rezerwacja_data_od < ?',
-            #                cls.get_datetime_from_string(date_range_json['date_from']),
-            #                cls.get_datetime_from_string(date_range_json['date_to']))
-
             cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
                            '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
                            'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od > ? and r.rezerwacja_data_do < ?)',
                            cls.get_datetime_from_string(date_range_json['date_from']),
                            cls.get_datetime_from_string(date_range_json['date_to']))
-
-            # result = []
             result = {}
 
             for row in cursor:
                 print(row)
-                result_element = {'id': row[0], 'name': row[1].strip(), 'type': row[2].strip()}
-                # result.append(result_list_element)
+                result_element = {'id': row[0],
+                                  'name': row[1].strip(),
+                                  'type': row[2].strip(),
+                                  'date_from': date_range_json['date_from'],
+                                  'date_to': date_range_json['date_to']}
                 result[f'{row[0]}'] = result_element
             return result
         except Exception as ex:
@@ -64,16 +60,39 @@ class DatabaseManager:
             print(f'Something went wrong with parsing string to datetime object. Trace:\n{ex}')
             return None
 
+    @classmethod
+    def insert_user(cls, user_data):
+        try:
+            print(f'Trying to insert user: {user_data} to database!')
+            cursor = cls.cnxn.cursor()
+            # cursor.execute(f"insert into Users (Imie, Nazwisko, Numer_Telefonu, Email) values ('{user_data['name']}','{user_data['surname']}', '{user_data['phone']}', '{user_data['email']}')")
+            cursor.execute(
+                "insert into dbo.Users (Imie, Nazwisko, Numer_Telefonu, Email) values (?, ?, ?, ?)", [
+                user_data['name'],
+                user_data['surname'],
+                user_data['phone'],
+                user_data['email']
+            ])
+            print('Successfully added new user to database!')
+            return True
+        except Exception as ex:
+            print(f'Something went wrong with inserting user to database. Trace:\n{ex}')
+            return None
+
 
 def main():
-    DatabaseManager.get_all_available_boats_filtered_by_date({'date_from': '2021-12-01 00:00:00',
-                                                              'date_to': '2021-12-31 00:00:00'})
+    # DatabaseManager.get_all_available_boats_filtered_by_date({'date_from': '2021-12-01 00:00:00',
+    #                                                           'date_to': '2021-12-31 00:00:00'})
     # DatabaseManager.get_all_reservations()
+    pass
 
 
 if __name__ == '__main__':
     main()
 
-
-
-# cursor.execute("insert into Users (ID_User, Imie, Nazwisko, Numer_Telefonu, Email) values (5, 'Zephania','Harrison', '123456789','leo@mattisCraseget.com')")
+cnxn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
+                          "Server=DJA-XPS;"
+                          "Database=wypozyczalnia_lodzie;"
+                          "Trusted_Connection=yes;")
+cursor = cnxn.cursor()
+cursor.execute("insert into Users (Imie, Nazwisko, Numer_Telefonu, Email) values ('Zephania','Harrison', '123456789','leo@mattisCraseget.com')")
