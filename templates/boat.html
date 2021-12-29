@@ -9,8 +9,8 @@
     <link href="https://cdn.jsdelivr.net/gh/marcellosurdi/DateTimePickerComponent/dist/css/date-time-picker-component.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/marcellosurdi/DateTimePickerComponent/dist/js/date-time-picker-component.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/date_picker.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/reservation.js') }}"></script>
 </head>
 <body>
     <div class="container">
@@ -32,41 +32,50 @@
             <img src="{{ url_for('static', filename='img/sailboat.jpg') }}" />
         </div>
         <div class="info_wrapper">
+            <div id="boat_config_json" class="boat_config_json">
+                {{ config_json }}
+            </div>
 
-            <div id="from_when" class="from_when">
-                <div id="select_date_from" class="datetime-container">
-                    <div class="picker"></div>
-                    <input type="hidden" name="select_date_value" class="date_output" value="">
+            <div id="boat_details_wrapper" class="boat_details_wrapper">
+                <div class="boat_details_pic">
+
                 </div>
-            </div>
-
-            <div id="to_when" class="to_when">
-                <div id="select_date_to" class="datetime-container">
-                    <div class="picker"></div>
-                    <input type="hidden" name="select_date_value" class="date_output" value="aaa">
-                </div>
-            </div>
-
-            <div id="check" class="check">
-                <button class="search_button" id="search_button">Szukaj</button>
-            </div>
-
-            <ul id="available_boats_list">
-                <!--<div class="single_element_wrapper">
-                    <div class="boat_pic">
+                <div class="boat_details_desc">
+                    <div class="boat_details_long_desc">
 
                     </div>
-                    <div class="boat_desc">
-                        <div class="boat_uri">
-
+                    <div class="boat_details_reserve_button">
+                        <button class="search_button" id="reserve_button">Rezerwuj!</button>
+                    </div>
+                </div>
+            </div>
+            <div id="user_form_wrapper" class="user_form_wrapper">
+                <div class="user_details">
+                    <div class="properties_names">
+                        <div class="property_name">
+                            Imię
                         </div>
-                        <div class="boat_short_description">
-
+                        <div class="property_name">
+                            Nazwisko
+                        </div>
+                        <div class="property_name">
+                            Email
+                        </div>
+                        <div class="property_name">
+                            Numer telefonu
                         </div>
                     </div>
-                </div>-->
-            </ul>
-
+                    <div class="properties_values">
+                        <input class="property_value" id="name">
+                        <input class="property_value" id="surname">
+                        <input class="property_value" id="email">
+                        <input class="property_value" id="phone">
+                    </div>
+                </div>
+                <div class="accept_button_wrapper">
+                    <button class="search_button" id="accept_button">Potwierdź!</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

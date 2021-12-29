@@ -103,3 +103,121 @@
     width: 100%;
     height: 13%;
 }
+
+/* boats list */
+#available_boats_list{
+    width: 70%;
+    height: 80%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+/* boat search result single element */
+.single_element_wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+.boat_pic{
+    margin: 2%;
+    width: 40%;
+    height: 90%;
+    background-color: yellow;
+    float: left;
+}
+.boat_desc{
+    margin: 2%;
+    width: 50%;
+    height: 90%;
+    background-color: orange;
+    float: left;
+}
+.boat_uri{
+    width: 96%;
+    height: 30%;
+    background-color: green;
+    margin: 2%;
+    font-size: 5vh;
+    font-family: 'Lato', sans-serif;
+}
+.boat_short_description{
+    width: 96%;
+    height: 60%;
+    background-color: blue;
+    margin: 2%;
+}
+
+/* boat details */
+.boat_details_wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+.boat_details_pic{
+    margin: 1%;
+    width: 40%;
+    height: 90%;
+    background-color: red;
+    float: left;
+}
+.boat_details_desc{
+    margin: 1%;
+    width: 55%;
+    height: 90%;
+    background-color: blue;
+    float: left;
+}
+.boat_details_long_desc{
+    width: 98%;
+    height: 70%;
+    background-color: green;
+    margin: 1%;
+    font-size: 5vh;
+    font-family: 'Lato', sans-serif;
+}
+.boat_details_reserve_button{
+    width: 98%;
+    height: 24%;
+    background-color: yellow;
+    margin: 1%;
+}
+
+/* user data form */
+.user_form_wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+.user_details{
+    width: 100%;
+    height: 80%;
+    background-color: yellow;
+}
+.properties_names{
+    width: 30%;
+    height: 100%;
+    background-color: green;
+    float: left;
+}
+.properties_values{
+    width: 70%;
+    height: 100%;
+    background-color: orange;
+    float: left;
+}
+.property_name{
+    width: 95%;
+    height: 20%;
+    text-align: right;
+}
+.property_value{
+    width: 95%;
+    height: 20%;
+    clear: both;
+}
+.accept_button_wrapper{
+    clear: both;
+    width: 100%;
+    height: 20%;
+    background-color: pink;
+}

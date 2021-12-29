@@ -31,15 +31,26 @@ class DatabaseManager:
         try:
             print(f'Trying to get available boats with date filter: {str(date_range_json)}')
             cursor = cls.cnxn.cursor()
-            cursor.execute('SELECT * FROM dbo.Rezerwacja WHERE dbo.Rezerwacja.rezerwacja_data_od > ?'
-                           ' and dbo.Rezerwacja.rezerwacja_data_do < ?',
+            # cursor.execute('SELECT * FROM dbo.Rezerwacja WHERE dbo.Rezerwacja.rezerwacja_data_do > ?'
+            #                ' and dbo.Rezerwacja.rezerwacja_data_od < ?',
+            #                cls.get_datetime_from_string(date_range_json['date_from']),
+            #                cls.get_datetime_from_string(date_range_json['date_to']))
+
+            cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
+                           '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
+                           'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od > ? and r.rezerwacja_data_do < ?)',
                            cls.get_datetime_from_string(date_range_json['date_from']),
                            cls.get_datetime_from_string(date_range_json['date_to']))
+
+            # result = []
+            result = {}
+
             for row in cursor:
-                # print('row = %r' % (row,))
                 print(row)
-                print(row[0])
-                print(type(row))
+                result_element = {'id': row[0], 'name': row[1].strip(), 'type': row[2].strip()}
+                # result.append(result_list_element)
+                result[f'{row[0]}'] = result_element
+            return result
         except Exception as ex:
             print(f'Something went wrong with getting available boats filtered by date. Trace:\n{ex}')
 

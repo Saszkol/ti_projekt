@@ -1,6 +1,6 @@
 import json
 from flask import Flask, render_template
-from db_manager import
+from db_manager import DatabaseManager
 
 app = Flask(__name__)
 
@@ -17,31 +17,34 @@ def reservation():
 
 @app.route('/get_available_boats/<jsdata>', methods=['GET'])
 def get_available_boats(jsdata):
-    # todo
-    #  1. Parse jsdata to dic +
-    #  2. Create query to database with from and to parameters
-    #  3. Execute Query
-    #  4. Analyze result
-    #  5. Build divs for all retrieved elements
-    #  6. Render proper html
-
     print(f'Got jsdata from web browser: {jsdata}')
     js = try_parse_to_dic(jsdata)
+    SearchResult.db_query_result = DatabaseManager.get_all_available_boats_filtered_by_date(js)
     if js is not None:
-        pass
+        return SearchResult.db_query_result
     else:
         return 'error'
-    return(jsdata)
+
+
+@app.route('/boat/<nr>')
+def boat(nr):
+    print(nr)
+    return render_template('boat.html', config_json=SearchResult.db_query_result[nr])
 
 
 def try_parse_to_dic(jsdata):
     try:
         print(f'Trying to parse jsdata: {jsdata} to dictionary.')
         js = json.loads(jsdata)
+        print(f'Successfully parsed jsdata to dictionary!')
         return js
     except Exception as ex:
         print(f'Something went wrong with parsing jsdata to dictionary. Trace:\n{ex}')
         return None
+
+
+class SearchResult:
+    db_query_result = None
 
 
 def main():
