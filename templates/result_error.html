@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczalnia Lodzi</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://cdn.jsdelivr.net/gh/marcellosurdi/DateTimePickerComponent/dist/css/date-time-picker-component.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/marcellosurdi/DateTimePickerComponent/dist/js/date-time-picker-component.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/date_picker.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="top_menu">
+            <div class="menu_button_wrap">
+                &nbsp;
+            </div>
+            <div class="menu_button_wrap">
+                <button class="menu_button" id="main">Strona główna</button>
+            </div>
+            <div class="menu_button_wrap">
+                <button class="menu_button" id="boats_description">Opis łodzi</button>
+            </div>
+            <div class="menu_button_wrap">
+                <button class="menu_button" id="contact">Kontakt</button>
+            </div>
+        </div>
+        <div class="thematic_picture">
+            <img src="{{ url_for('static', filename='img/sailboat.jpg') }}" />
+        </div>
+        <div class="info_wrapper">
+
+            <div class="result_picture">
+                <img src="{{ url_for('static', filename='img/result_error.png') }}" /> &nbsp;&nbsp;Nie udało się dodać rezerwacji!
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

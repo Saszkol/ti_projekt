@@ -15,6 +15,16 @@ def reservation():
     return render_template('reservation.html')
 
 
+@app.route("/result_ok")
+def result_ok():
+    return render_template('result_ok.html')
+
+
+@app.route("/result_error")
+def result_error():
+    return render_template('result_error.html')
+
+
 @app.route('/get_available_boats/<jsdata>', methods=['GET'])
 def get_available_boats(jsdata):
     print(f'Got jsdata from web browser: {jsdata}')
@@ -43,8 +53,18 @@ def accept_reservation(reservation_data):
         #  1. add user data to db
         #  2. add reservation data to db
         #  3. return success
-        DatabaseManager.insert_user(reservation_data_json)
-        return 'ok'
+        insert_user_result = DatabaseManager.insert_user(reservation_data_json)
+        if not insert_user_result:
+            return 'error'
+        else:
+            proper_string_to_parse = reservation_data_json['config_json'].replace('\'', '"')
+            chosen_boat_data = try_parse_to_dic(proper_string_to_parse)
+            print(chosen_boat_data)
+            insert_reservation_result = DatabaseManager.insert_reservation(chosen_boat_data, reservation_data_json)
+            if insert_reservation_result:
+                return 'ok'
+            else:
+                return 'error'
 
 
 def try_parse_to_dic(jsdata):

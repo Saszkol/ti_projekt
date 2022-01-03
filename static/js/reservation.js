@@ -23,6 +23,13 @@ $(document).ready(function(){
 
         var result = $.get( "/accept_reservation/" + data, function(data){
             console.log(data);
+
+            if (data == 'ok'){
+                window.location.replace('http://localhost:5000/result_ok')
+            }
+            else {
+                window.location.replace('http://localhost:5000/result_error')
+            }
         });
     });
 });

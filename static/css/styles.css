@@ -256,3 +256,20 @@
     font-size: 2vh;
     font-family: 'Lato', sans-serif;
 }
+
+/* result */
+.result_picture{
+    width: 95%;
+    height: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5%;
+    font-size: 5vh;
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.result_picture img{
+    height: 100%;
+}

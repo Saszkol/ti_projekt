@@ -73,11 +73,43 @@ class DatabaseManager:
                 user_data['phone'],
                 user_data['email']
             ])
+            cls.cnxn.commit()
             print('Successfully added new user to database!')
             return True
         except Exception as ex:
             print(f'Something went wrong with inserting user to database. Trace:\n{ex}')
-            return None
+            return False
+
+    @classmethod
+    def insert_reservation(cls, chosen_boat_data, user_data):
+        try:
+            print(f'Trying to insert reservation for boat: {chosen_boat_data}')
+
+            cursor = cls.cnxn.cursor()
+            cursor.execute('select * from dbo.Users a where a.Email = ?', user_data['email'])
+
+            user_id = None
+
+            for row in cursor:
+                user_id = row[0]
+
+            if user_id is not None:
+                cursor = cls.cnxn.cursor()
+                cursor.execute(
+                    "insert into dbo.Rezerwacja (ID_Lodz, ID_User, rezerwacja_data_od, rezerwacja_data_do) values (?, ?, ?, ?)", [
+                        chosen_boat_data['id'],
+                        user_id,
+                        chosen_boat_data['date_from'],
+                        chosen_boat_data['date_to']
+                    ])
+                cls.cnxn.commit()
+            else:
+                return False
+            print(f'Successfully added reservation!')
+            return True
+        except Exception as ex:
+            print(f'Something went wrong with inserting reservation for boat: {chosen_boat_data}. Trace:\n{ex}')
+            return False
 
 
 def main():
@@ -90,9 +122,10 @@ def main():
 if __name__ == '__main__':
     main()
 
-cnxn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
-                          "Server=DJA-XPS;"
-                          "Database=wypozyczalnia_lodzie;"
-                          "Trusted_Connection=yes;")
-cursor = cnxn.cursor()
-cursor.execute("insert into Users (Imie, Nazwisko, Numer_Telefonu, Email) values ('Zephania','Harrison', '123456789','leo@mattisCraseget.com')")
+# cnxn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
+#                           "Server=DJA-XPS;"
+#                           "Database=wypozyczalnia_lodzie;"
+#                           "Trusted_Connection=yes;")
+# cursor = cnxn.cursor()
+# cursor.execute("insert into dbo.Users (Imie, Nazwisko, Numer_Telefonu, Email) values ('Zephania','Harrison', '123456789','leo@mattisCraseget.com')")
+# cnxn.commit()
