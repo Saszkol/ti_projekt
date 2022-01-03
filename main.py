@@ -39,7 +39,18 @@ def get_available_boats(jsdata):
 @app.route('/boat/<nr>')
 def boat(nr):
     print(nr)
-    return render_template('boat.html', config_json=SearchResult.db_query_result[nr])
+    if nr == '1':
+        return render_template('boat.html', config_json=SearchResult.db_query_result[nr], boat_id=nr)
+    elif nr == '2':
+        return render_template('boat.html', config_json=SearchResult.db_query_result[nr], boat_id=nr)
+    elif nr == '3':
+        return render_template('boat.html', config_json=SearchResult.db_query_result[nr], boat_id=nr)
+    elif nr == '4':
+        return render_template('boat.html', config_json=SearchResult.db_query_result[nr], boat_id=nr)
+    elif nr == '5':
+        return render_template('boat.html', config_json=SearchResult.db_query_result[nr], boat_id=nr)
+    elif nr == '6':
+        return render_template('boat.html', config_json=SearchResult.db_query_result[nr], boat_id=nr)
 
 
 @app.route('/accept_reservation/<reservation_data>', methods=['GET'])
@@ -49,10 +60,6 @@ def accept_reservation(reservation_data):
     if reservation_data_json is None:
         return 'error'
     else:
-        # todo
-        #  1. add user data to db
-        #  2. add reservation data to db
-        #  3. return success
         insert_user_result = DatabaseManager.insert_user(reservation_data_json)
         if not insert_user_result:
             return 'error'

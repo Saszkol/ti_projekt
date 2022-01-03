@@ -2,13 +2,8 @@ import pyodbc
 import datetime
 
 class DatabaseManager:
-    # cnxn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
-    #                       "Server=IT15007;"
-    #                       "Database=wypozyczalnia_lodzie;"
-    #                       "Trusted_Connection=yes;")
-
     cnxn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
-                          "Server=DJA-XPS;"
+                          "Server=IT15007;"
                           "Database=wypozyczalnia_lodzie;"
                           "Trusted_Connection=yes;")
 
@@ -31,10 +26,18 @@ class DatabaseManager:
         try:
             print(f'Trying to get available boats with date filter: {str(date_range_json)}')
             cursor = cls.cnxn.cursor()
+            # cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
+            #                '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
+            #                'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od >= ? and r.rezerwacja_data_do <= ?)',
+            #                cls.get_datetime_from_string(date_range_json['date_from']),
+            #                cls.get_datetime_from_string(date_range_json['date_to']))
             cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
                            '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
-                           'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od > ? and r.rezerwacja_data_do < ?)',
+                           'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od >= ? and r.rezerwacja_data_od <= ? '
+                           'and r.rezerwacja_data_do >= ? and r.rezerwacja_data_do <= ?)',
                            cls.get_datetime_from_string(date_range_json['date_from']),
+                           cls.get_datetime_from_string(date_range_json['date_from']),
+                           cls.get_datetime_from_string(date_range_json['date_to']),
                            cls.get_datetime_from_string(date_range_json['date_to']))
             result = {}
 
@@ -54,7 +57,8 @@ class DatabaseManager:
     def get_datetime_from_string(cls, date_string):
         try:
             print(f'Trying to parse date string: {date_string} to datetime object')
-            datetime_object = datetime.datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
+            # datetime_object = datetime.datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
+            datetime_object = datetime.datetime.strptime(date_string, "%Y-%m-%d")
             return datetime_object
         except Exception as ex:
             print(f'Something went wrong with parsing string to datetime object. Trace:\n{ex}')
@@ -65,7 +69,6 @@ class DatabaseManager:
         try:
             print(f'Trying to insert user: {user_data} to database!')
             cursor = cls.cnxn.cursor()
-            # cursor.execute(f"insert into Users (Imie, Nazwisko, Numer_Telefonu, Email) values ('{user_data['name']}','{user_data['surname']}', '{user_data['phone']}', '{user_data['email']}')")
             cursor.execute(
                 "insert into dbo.Users (Imie, Nazwisko, Numer_Telefonu, Email) values (?, ?, ?, ?)", [
                 user_data['name'],
@@ -121,11 +124,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# cnxn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
-#                           "Server=DJA-XPS;"
-#                           "Database=wypozyczalnia_lodzie;"
-#                           "Trusted_Connection=yes;")
-# cursor = cnxn.cursor()
-# cursor.execute("insert into dbo.Users (Imie, Nazwisko, Numer_Telefonu, Email) values ('Zephania','Harrison', '123456789','leo@mattisCraseget.com')")
-# cnxn.commit()

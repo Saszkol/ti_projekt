@@ -46,8 +46,6 @@
 .thematic_picture{
     width: 95%;
     height: 30%;
-    /*background-color: blue;*/
-    /*background-image: url("../img/sailboat.jpg");*/
     margin-left: auto;
     margin-right: auto;
     margin-top: 0.5%;
@@ -120,26 +118,28 @@
 .single_element_wrapper{
     width: 100%;
     height: 100%;
-    background-color: red;
 }
 .boat_pic{
     margin: 2%;
     width: 40%;
     height: 90%;
-    background-color: yellow;
     float: left;
+}
+.boat_pic img {
+    height: 100%;
+    width: 100%;
 }
 .boat_desc{
     margin: 2%;
     width: 50%;
     height: 90%;
-    background-color: orange;
     float: left;
+    font-size: 1vh;
+    font-family: 'Lato', sans-serif;
 }
 .boat_uri{
     width: 96%;
     height: 30%;
-    background-color: green;
     margin: 2%;
     font-size: 5vh;
     font-family: 'Lato', sans-serif;
@@ -147,42 +147,46 @@
 .boat_short_description{
     width: 96%;
     height: 60%;
-    background-color: blue;
     margin: 2%;
+    font-size: 1.5vh;
+    font-family: 'Lato', sans-serif;
 }
 
 /* boat details */
 .boat_details_wrapper{
     width: 100%;
     height: 100%;
-    background-color: black;
 }
 .boat_details_pic{
     margin: 1%;
     width: 40%;
     height: 90%;
-    background-color: red;
     float: left;
+}
+.boat_details_pic img {
+    height: 100%;
+    width: 100%;
 }
 .boat_details_desc{
     margin: 1%;
     width: 55%;
     height: 90%;
-    background-color: blue;
     float: left;
 }
 .boat_details_long_desc{
     width: 98%;
     height: 70%;
-    background-color: green;
     margin: 1%;
     font-size: 5vh;
     font-family: 'Lato', sans-serif;
 }
+.boat_details_long_desc img {
+    height: 100%;
+    width: 100%;
+}
 .boat_details_reserve_button{
     width: 98%;
     height: 24%;
-    background-color: yellow;
     margin: 1%;
     display: flex;
     justify-content: center;
