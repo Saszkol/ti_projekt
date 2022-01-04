@@ -26,19 +26,29 @@ class DatabaseManager:
         try:
             print(f'Trying to get available boats with date filter: {str(date_range_json)}')
             cursor = cls.cnxn.cursor()
-            # cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
-            #                '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
-            #                'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od >= ? and r.rezerwacja_data_do <= ?)',
-            #                cls.get_datetime_from_string(date_range_json['date_from']),
-            #                cls.get_datetime_from_string(date_range_json['date_to']))
-            cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
-                           '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
-                           'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od >= ? and r.rezerwacja_data_od <= ? '
-                           'and r.rezerwacja_data_do >= ? and r.rezerwacja_data_do <= ?)',
+
+            cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in ('
+                           'select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
+                           'where l.ID_Lodz = r.ID_Lodz and ((? >= r.rezerwacja_data_od'
+                           ' and ? <= r.rezerwacja_data_do)'
+                           ' or (? >= r.rezerwacja_data_od and ? <= r.rezerwacja_data_do)))',
                            cls.get_datetime_from_string(date_range_json['date_from']),
                            cls.get_datetime_from_string(date_range_json['date_from']),
                            cls.get_datetime_from_string(date_range_json['date_to']),
                            cls.get_datetime_from_string(date_range_json['date_to']))
+            # cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
+            #                '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
+            #                'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od >= ? and r.rezerwacja_data_do <= ?)',
+            #                cls.get_datetime_from_string(date_range_json['date_from']),
+            #                cls.get_datetime_from_string(date_range_json['date_from']))
+            # cursor.execute('select * from dbo.Lodzie a where a.ID_Lodz not in '
+            #                '(select l.ID_Lodz as id_lodzi from dbo.Lodzie l, dbo.Rezerwacja r '
+            #                'where l.ID_Lodz = r.ID_Lodz and r.rezerwacja_data_od >= ? and r.rezerwacja_data_od <= ? '
+            #                'and r.rezerwacja_data_do >= ? and r.rezerwacja_data_do <= ?)',
+            #                cls.get_datetime_from_string(date_range_json['date_from']),
+            #                cls.get_datetime_from_string(date_range_json['date_from']),
+            #                cls.get_datetime_from_string(date_range_json['date_to']),
+            #                cls.get_datetime_from_string(date_range_json['date_to']))
             result = {}
 
             for row in cursor:
